@@ -1,5 +1,5 @@
 from __future__ import print_function
-from keras.callbacks import LambdaCallback
+from keras.callbacks import LambdaCallback, ModelCheckpoint
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
@@ -9,6 +9,7 @@ import numpy as np
 import random
 import sys
 import io
+import os
 
 path = './preprocess_done.txt'
 with io.open(path, encoding='utf-8') as f:
@@ -91,9 +92,20 @@ def on_epoch_end(epoch, _):
         print()
 
 
+os.makedirs('models', exist_ok=True)
+
+model_checkpoint = ModelCheckpoint(
+    filepath=os.path.join('models', 'model_{epoch:02d}_{val_loss:.2f}.h5'),
+    monitor='val_loss',
+    verbose=1)
+
 print_callback = LambdaCallback(on_epoch_end=on_epoch_end)
 
 model.fit(x, y,
           batch_size=128,
           epochs=60,
-          callbacks=[print_callback])
+          callbacks=[model_checkpoint])
+
+model_json_str = model.to_json()
+open('complete_model_epoch_60.json', 'w').write(model_json_str)
+model.save_weights('complete_model_epoch_60.h5')
