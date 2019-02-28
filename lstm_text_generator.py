@@ -95,7 +95,7 @@ def on_epoch_end(epoch, _):
 os.makedirs('models', exist_ok=True)
 
 model_checkpoint = ModelCheckpoint(
-    filepath=os.path.join('models', 'model_{epoch:02d}_{val_loss:.2f}.h5'),
+    filepath=os.path.join('models', 'model_{epoch:02d}.h5'),
     monitor='val_loss',
     verbose=1)
 
