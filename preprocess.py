@@ -3,21 +3,21 @@
 
 import sys
 import re
+import os
 
-path = 'source/凶.txt'
+path = './source/藪の中.txt'
 file = open(path, 'r', encoding='Shift_JIS')
 
-output = ""
-# source_text = file.decode('Shift_JIS')
-
 source_text = file.read()
-# print(source_text)
-# output = re.split(r'\r',source_text)
-text = re.split(r'底本',source_text)
-# text = text.replace('｜','')
-text = re.sub(r'《.+?》','',text)
-text = re.sub(r'［＃.+?］','',text)
-# print(output)
-print(text)
 
-# file = open('test_preprocess.txt','a',encoding='utf-8').write(text)
+count = source_text.count('\n')
+print(count)
+
+text_tagging_hi = re.sub(r'--+', 'タグを埋め込みます', source_text)
+text_remove_tag = text_tagging_hi.split('タグを埋め込みます')[-1]
+text_without_rubi = re.sub(r'《.+?》','', text_remove_tag)
+text_without_com = re.sub(r'［.+?］', '', text_without_rubi)
+output = text_without_com.split('底本')[0]
+print(output)
+
+file = open('test_preprocess.txt','a',encoding='utf-8').write(output)
