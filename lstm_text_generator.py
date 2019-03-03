@@ -26,6 +26,7 @@ maxlen = 40
 step = 3
 sentences = []
 next_chars = []
+
 for i in range(0, len(text) - maxlen, step):
     sentences.append(text[i: i + maxlen])
     next_chars.append(text[i + maxlen])
@@ -40,7 +41,7 @@ for i, sentence in enumerate(sentences):
     y[i, char_indices[next_chars[i]]] = 1
 
 
-# build the model: a single LSTM
+# モデルをビルドする
 print('Build model...')
 model = Sequential()
 model.add(LSTM(128, input_shape=(maxlen, len(chars))))
@@ -51,7 +52,6 @@ model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
 
 def sample(preds, temperature=1.0):
-    # helper function to sample an index from a probability array
     preds = np.asarray(preds).astype('float64')
     preds = np.log(preds) / temperature
     exp_preds = np.exp(preds)
@@ -59,7 +59,7 @@ def sample(preds, temperature=1.0):
     probas = np.random.multinomial(1, preds, 1)
     return np.argmax(probas)
 
-
+# エポックごとに文章を自動生成させる
 def on_epoch_end(epoch, _):
     # Function invoked at end of each epoch. Prints generated text.
     print()
@@ -92,6 +92,7 @@ def on_epoch_end(epoch, _):
         print()
 
 
+# modelsというディレクトリを作成して、epochごとにその時点での重みを保存する
 os.makedirs('models', exist_ok=True)
 
 model_checkpoint = ModelCheckpoint(
