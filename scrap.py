@@ -1,15 +1,16 @@
 # coding: UTF-8
-import urllib2
+import requests
 from bs4 import BeautifulSoup
 
 target_url = "https://aozorashoin.com/author/879"
 
-html = urllib2.urlopen(url)
+r = requests.get(target_url)
 
-# 対象の要素を再帰的にページ読み込み
-# ３秒ぐらいまつ
+# htmlをBeautifulSoupで扱う
+soup = BeautifulSoup(r.text, "html.parser")
 
 # table table-hover配下のaタグを配列に格納
+print(soup.find('table', class_="table-hover").a)
 # for eachでループを回す
 
 # ページ中のH1タグがタイトル。これを元にファイルを生成
