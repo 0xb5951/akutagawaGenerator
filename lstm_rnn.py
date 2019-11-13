@@ -11,7 +11,7 @@ import sys
 import io
 import os
 
-path = './preprocess_done.txt'
+path = 'preprocess/output.txt'
 with io.open(path, encoding='utf-8') as f:
     text = f.read().lower()
 print('corpus length:', len(text))
