@@ -9,9 +9,11 @@ path = './source/'
 
 files = os.listdir(path)
 
+
+
 for file in files:
     file_path = path + file
-    print(file_path)
+    print('preprose')
     with open(file_path, 'r', encoding='Shift_JIS') as file:
         source_text = file.read()
         # 本文前の注釈にタグを埋め込んで、そこを元に本文を抽出
@@ -24,3 +26,6 @@ for file in files:
         # 出版社や作成日などの情報を削除
         output = text_without_com.split('底本')[0]
         output_file = open('preprocess_done.txt','a',encoding='utf-8').write(output)
+
+if __name__ == '__main__':
+    print('start preprocess')
