@@ -23,8 +23,9 @@ def book_detail(book_link):
     rb = requests.get(site_url + book_link)
     book = BeautifulSoup(rb.text, "html.parser")
     title = book.h1.text
-    with open('./source/'+title+'.txt', mode='x') as f:
+    with open('./source/'+title+'.txt', mode='w') as f:
         f.write(str(book.select("#text")))
+        print('installed' + title)
     time.sleep(5)
     return
 
