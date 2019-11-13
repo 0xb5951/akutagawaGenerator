@@ -24,7 +24,7 @@ def preprocess():
             output = re.sub(r'［.+?］','', output)
             # その他邪魔オブジェクトを削除
             output = re.sub(r'[\[）\]]*','', output)
-            file = open('preprocess_done.txt','a',encoding='utf-8')
+            file = open('./preprocess/output.txt','a',encoding='utf-8')
             file.write(output)
             file.close()
     return             
