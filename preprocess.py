@@ -6,27 +6,30 @@ import sys
 import re
 import os
 
-path = './source/'
+source_path = './source/'
 
-files = os.listdir(path)
+def preprocess():
+    book_sources = os.listdir(source_path)
 
-
-
-for file in files:
-    file_path = path + file
-    print('preprose')
-    with open(file_path, 'r', encoding='Shift_JIS') as file:
-        source_text = file.read()
-        # 本文前の注釈にタグを埋め込んで、そこを元に本文を抽出
-        text_tagging_hi = re.sub(r'--+', 'タグを埋め込みます', source_text)
-        text_remove_tag = text_tagging_hi.split('タグを埋め込みます')[-1]
-        # 単語に振ってあるルビを削除
-        text_without_rubi = re.sub(r'《.+?》','', text_remove_tag)
-        # 本文中にある注釈や解説を削除
-        text_without_com = re.sub(r'［.+?］', '', text_without_rubi)
-        # 出版社や作成日などの情報を削除
-        output = text_without_com.split('底本')[0]
-        output_file = open('preprocess_done.txt','a',encoding='utf-8').write(output)
+    for book_txt in book_sources:
+        book_source = source_path + book_txt
+        print('now processing:\t' + book_txt)
+        with open(book_source, 'r', encoding='utf-8') as f:
+            source_text = f.read()
+            # htmlタグを削除
+            output = re.sub(r'<.+?>','', source_text)
+            # ふりがなを削除
+            output = re.sub(r'（.+?）','', output)
+            # 注釈を削除
+            output = re.sub(r'［.+?］','', output)
+            # その他邪魔オブジェクトを削除
+            output = re.sub(r'[\[）\]]*','', output)
+            file = open('preprocess_done.txt','a',encoding='utf-8')
+            file.write(output)
+            file.close()
+    return             
 
 if __name__ == '__main__':
-    print('start preprocess')
+    print('preprocess start')
+    preprocess()
+
