@@ -36,5 +36,5 @@ tensorflow-estimator==1.13.0
 termcolor==1.1.0
 unify==0.5
 untokenize==0.1.1
-urllib3==1.25.8
+urllib3==1.26.4
 Werkzeug==0.16.0
