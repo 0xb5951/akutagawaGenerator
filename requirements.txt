@@ -10,7 +10,7 @@ entrypoints==0.3
 flake8==3.7.9
 gast==0.2.2
 grpcio==1.38.1
-h5py==2.9.0
+h5py==3.5.0
 idna==2.8
 isort==4.3.21
 Keras==2.2.4
