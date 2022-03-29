@@ -37,4 +37,4 @@ termcolor==1.1.0
 unify==0.5
 untokenize==0.1.1
 urllib3==1.26.6
-Werkzeug==0.16.0
+Werkzeug==2.1.0
