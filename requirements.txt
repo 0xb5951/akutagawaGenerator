@@ -31,7 +31,7 @@ scipy==1.2.1
 six==1.15.0
 soupsieve==1.9.5
 tensorboard==1.13.0
-tensorflow==2.8.0
+tensorflow==2.10.0
 tensorflow-estimator==1.13.0
 termcolor==1.1.0
 unify==0.5
