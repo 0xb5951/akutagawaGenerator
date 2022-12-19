@@ -19,7 +19,7 @@ Keras-Preprocessing==1.0.9
 Markdown==3.3.6
 mccabe==0.6.1
 mock==2.0.0
-numpy==1.20.2
+numpy==1.24.0
 pbr==5.1.2
 protobuf==3.18.0
 pycodestyle==2.5.0
